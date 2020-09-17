@@ -93,4 +93,10 @@
       invitation = #{invitation,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByTel" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where tel = #{tel,jdbcType=VARCHAR}
+  </select>
 </mapper>

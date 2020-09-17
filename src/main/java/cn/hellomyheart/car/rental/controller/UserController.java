@@ -3,12 +3,15 @@ package cn.hellomyheart.car.rental.controller;
 import cn.hellomyheart.car.rental.common.JsonResult;
 import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.service.UserService;
+import cn.hellomyheart.car.rental.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @description 用户控制器
@@ -37,6 +40,13 @@ public class UserController {
         User registerUser = userService.selectByPrimaryKey(user.getId());
 
         return new JsonResult(1,registerUser);
+    }
+
+    @PostMapping("/login.do")
+    public JsonResult login(String tel, String password, HttpSession session){
+        User loginUser = userService.login(tel,password);
+        session.setAttribute(StrUtils.LOGIN_USER,loginUser);
+        return new JsonResult(1, loginUser);
     }
 
 }

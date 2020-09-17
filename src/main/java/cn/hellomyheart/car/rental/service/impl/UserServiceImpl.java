@@ -9,36 +9,45 @@ import cn.hellomyheart.car.rental.service.UserService;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private UserMapper sysUserMapper;
+    private UserMapper userMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
-        return sysUserMapper.deleteByPrimaryKey(id);
+        return userMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insert(User record) {
-        return sysUserMapper.insert(record);
+        return userMapper.insert(record);
     }
 
     @Override
     public int insertSelective(User record) {
-        return sysUserMapper.insertSelective(record);
+        return userMapper.insertSelective(record);
     }
 
     @Override
     public User selectByPrimaryKey(Integer id) {
-        return sysUserMapper.selectByPrimaryKey(id);
+        return userMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
-        return sysUserMapper.updateByPrimaryKeySelective(record);
+        return userMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(User record) {
-        return sysUserMapper.updateByPrimaryKey(record);
+        return userMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public User login(String tel, String password) {
+        User user = userMapper.selectByTel(tel);
+        if (user ==null)
+            throw new RuntimeException("账户不存在,请检查手机号!");
+        if (!user.getPassword().equals(password))
+            throw new RuntimeException("密码错误,请检查密码!");
+        return user;
+    }
 }
