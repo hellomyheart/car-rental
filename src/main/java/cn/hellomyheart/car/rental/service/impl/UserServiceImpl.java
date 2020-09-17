@@ -3,7 +3,7 @@ package cn.hellomyheart.car.rental.service.impl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import cn.hellomyheart.car.rental.entity.User;
-import cn.hellomyheart.car.rental.dao.UserMapper;
+import cn.hellomyheart.car.rental.mapper.UserMapper;
 import cn.hellomyheart.car.rental.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {

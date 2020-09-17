@@ -2,7 +2,7 @@ package cn.hellomyheart.car.rental.service.impl;
 
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import cn.hellomyheart.car.rental.dao.SysCityMapper;
+import cn.hellomyheart.car.rental.mapper.SysCityMapper;
 import cn.hellomyheart.car.rental.entity.SysCity;
 import cn.hellomyheart.car.rental.service.SysCityService;
 @Service

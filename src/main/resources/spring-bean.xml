@@ -54,7 +54,7 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 设置映射文件所在包 -->
-        <property name="basePackage" value="cn.hellomyheart.car.rental.dao"/>
+        <property name="basePackage" value="cn.hellomyheart.car.rental.mapper"/>
     </bean>
     <!--spring 事务-->
     <!--1.配置事务管理类-->

@@ -3,7 +3,7 @@ package cn.hellomyheart.car.rental.service.impl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import cn.hellomyheart.car.rental.entity.SysOrder;
-import cn.hellomyheart.car.rental.dao.SysOrderMapper;
+import cn.hellomyheart.car.rental.mapper.SysOrderMapper;
 import cn.hellomyheart.car.rental.service.SysOrderService;
 @Service
 public class SysOrderServiceImpl implements SysOrderService{

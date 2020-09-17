@@ -1,4 +1,4 @@
-package cn.hellomyheart.car.rental.dao;
+package cn.hellomyheart.car.rental.mapper;
 
 import cn.hellomyheart.car.rental.entity.SysCar;
 
