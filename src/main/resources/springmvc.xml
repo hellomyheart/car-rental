@@ -77,21 +77,21 @@
         <property name="maxUploadSize" value="1048576"/>
 
     </bean>
-<!--    &lt;!&ndash;拦截器相关的配置&ndash;&gt;-->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            &lt;!&ndash;            拦截所有资源包括一些静态资源  js&ndash;&gt;-->
-<!--            <mvc:mapping path="/**"/>-->
-<!--            &lt;!&ndash;除了js文件夹的所有的文件不被拦截其他的被拦截&ndash;&gt;-->
-<!--            <mvc:exclude-mapping path="/js/**"/>-->
-<!--            <mvc:exclude-mapping path="/layui/**"/>-->
-<!--            &lt;!&ndash;除了login.html login.do  不被拦截，其他的被拦截-->
-<!--            &ndash;&gt;-->
+    <!--拦截器相关的配置-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--            拦截所有资源包括一些静态资源  js-->
+            <mvc:mapping path="/**"/>
+            <!--除了js文件夹的所有的文件不被拦截其他的被拦截-->
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/layui/**"/>
+            <!--除了login.html login.do  不被拦截，其他的被拦截
+            -->
 
-<!--            <mvc:exclude-mapping path="/**/login.*"/>-->
-<!--            <bean class="com.qfedu.interceptor.LoginInterceptor"/>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+            <mvc:exclude-mapping path="/**/login.*"/>
+            <bean class="cn.hellomyheart.car.rental.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <!-- 视图解析器 -->
