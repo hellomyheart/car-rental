@@ -10,6 +10,12 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <!--Lombok Begin-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
         <!-- jstl的jar -->
         <dependency>
             <groupId>jstl</groupId>
