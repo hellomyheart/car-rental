@@ -84,11 +84,14 @@
             <mvc:mapping path="/**"/>
             <!--除了js文件夹的所有的文件不被拦截其他的被拦截-->
             <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/fonts/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
             <mvc:exclude-mapping path="/layui/**"/>
-            <!--除了login.html login.do  不被拦截，其他的被拦截
-            -->
+            <!--除了login.html login.do  不被拦截，其他的被拦截-->
 
             <mvc:exclude-mapping path="/**/login.*"/>
+            <mvc:exclude-mapping path="/**/register.*"/>
             <bean class="cn.hellomyheart.car.rental.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

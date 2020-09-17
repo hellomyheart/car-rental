@@ -4,7 +4,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class SysUser implements Serializable {
+public class User implements Serializable {
     private Integer id;
 
     private String tel;

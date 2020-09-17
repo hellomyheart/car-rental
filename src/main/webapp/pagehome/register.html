@@ -59,7 +59,7 @@
                         <i class="layui-icon layui-icon-password" style="font-size: 20px; "></i>
                         <div class="layui-inline">
                         <div class="layui-input-inline">
-                            <input type="repassword" lay-verify="repassword" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                            <input type="password" lay-verify="repassword" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
                         </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                 <div data-v-676ecf83="" class="registerImg right">
                     <h2 data-v-676ecf83="">已有车速递账号？
                         <a data-v-676ecf83="" href="login.html">立即登录&nbsp;&gt;&gt;</a>
-                    </h2> <img data-v-676ecf83="" src="https://www.chesudi.com/static/img/register.256808f.jpg">
+                    </h2> <img data-v-676ecf83="" src="../images/register.be4a5bd.jpg">
                 </div>
             </div>
 
@@ -130,7 +130,7 @@
         //监听提交
         form.on('submit(demo1)', function(data){
             $.ajax({
-                url:"/carsys/user/register.do",
+                url:"/user/register.do",
                 type:"post",
                 data:$("form").serialize(),
                 dataType:'json',

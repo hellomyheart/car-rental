@@ -1,6 +1,6 @@
 package cn.hellomyheart.car.rental.interceptor;
 
-import cn.hellomyheart.car.rental.entity.SysUser;
+import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.utils.StrUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -13,7 +13,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String requestURI = request.getRequestURI();
         System.out.println(requestURI);
-        SysUser user = (SysUser)request.getSession().getAttribute(StrUtils.LOGIN_USER);
+        User user = (User)request.getSession().getAttribute(StrUtils.LOGIN_USER);
         if (user == null) {
             //证明没有登录需要跳转到登录页面
             //1.在jquery中使用了ajax 会有特殊的请求头  带有  .do
