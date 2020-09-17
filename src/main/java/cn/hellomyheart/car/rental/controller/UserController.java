@@ -6,10 +6,7 @@ import cn.hellomyheart.car.rental.service.UserService;
 import cn.hellomyheart.car.rental.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,8 +25,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 注册
+     * @param tel
+     * @param password
+     * @param email
+     * @param invitation
+     * @return
+     */
     @PostMapping("/register.do")
-    public JsonResult registerUser(String tel,String password,String email,String invitation){
+    public JsonResult registerUser(String tel, String password, String email, String invitation) {
 
         User user = new User();
         user.setTel(tel);
@@ -39,14 +44,36 @@ public class UserController {
         userService.insert(user);
         User registerUser = userService.selectByPrimaryKey(user.getId());
 
-        return new JsonResult(1,registerUser);
+        return new JsonResult(1, registerUser);
     }
 
+    /**
+     * 登录
+     * @param tel
+     * @param password
+     * @param session
+     * @return
+     */
     @PostMapping("/login.do")
-    public JsonResult login(String tel, String password, HttpSession session){
-        User loginUser = userService.login(tel,password);
-        session.setAttribute(StrUtils.LOGIN_USER,loginUser);
+    public JsonResult login(String tel, String password, HttpSession session) {
+        User loginUser = userService.login(tel, password);
+        session.setAttribute(StrUtils.LOGIN_USER, loginUser);
         return new JsonResult(1, loginUser);
+    }
+
+    /**
+     * 获取登录用户信息
+     * @param session
+     * @return
+     */
+    @GetMapping("/query.do")
+    public JsonResult query(HttpSession session) {
+        User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
+        if (user == null) {
+            return new JsonResult(0, "未登录");
+        }
+
+        return new JsonResult(1, user);
     }
 
 }
