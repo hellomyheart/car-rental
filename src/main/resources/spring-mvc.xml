@@ -92,6 +92,7 @@
 
             <mvc:exclude-mapping path="/**/login.*"/>
             <mvc:exclude-mapping path="/**/register.*"/>
+            <mvc:exclude-mapping path="/**/city/*.*"/>
             <bean class="cn.hellomyheart.car.rental.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

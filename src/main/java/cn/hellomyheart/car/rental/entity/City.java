@@ -4,7 +4,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class SysCity implements Serializable {
+public class City implements Serializable {
     private Integer id;
 
     private String name;
