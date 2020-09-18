@@ -3,6 +3,8 @@ package cn.hellomyheart.car.rental.controller;
 import cn.hellomyheart.car.rental.common.JsonResult;
 import cn.hellomyheart.car.rental.entity.Car;
 import cn.hellomyheart.car.rental.entity.City;
+import cn.hellomyheart.car.rental.entity.Order;
+import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.service.CarService;
 import cn.hellomyheart.car.rental.utils.StrUtils;
 import cn.hellomyheart.car.rental.common.TableResult;
@@ -48,6 +50,14 @@ public class CarController {
         return tableResult;
     }
 
+
+    @GetMapping("/find.do")
+    public JsonResult findCar(Integer id){
+
+        Car car = carService.selectByPrimaryKey(id);
+
+        return new JsonResult(1,car);
+    }
 
 
 }
