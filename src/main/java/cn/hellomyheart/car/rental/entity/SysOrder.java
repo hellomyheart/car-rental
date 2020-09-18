@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class SysOrder implements Serializable {
+    private static final long serialVersionUID = -1445256493502447333L;
     private Integer id;
 
     private Integer cid;
@@ -19,5 +20,4 @@ public class SysOrder implements Serializable {
 
     private String status;
 
-    private static final long serialVersionUID = 1L;
 }

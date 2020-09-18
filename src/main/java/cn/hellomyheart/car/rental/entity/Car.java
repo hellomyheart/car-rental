@@ -4,7 +4,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class SysCar implements Serializable {
+public class Car implements Serializable {
+    private static final long serialVersionUID = -5208655836009430455L;
     private Integer id;
 
     private String name;
@@ -21,5 +22,4 @@ public class SysCar implements Serializable {
 
     private String picture;
 
-    private static final long serialVersionUID = 1L;
 }

@@ -114,27 +114,27 @@
             , element = layui.element;//元素的操作
 
         //渲染table
-        // table.render({
-        //     //z找到table  id叫test的组件
-        //     // TODO:业务还没写
-        //     elem: '#test'
-        //     , id: "transferTable"
-        //     , url: 'http://localhost:8080/TestThreeProject/city/showCar.do'
-        //     , totalRow: true
-        //     //这个很关键，就是解析 json数据库中数据的 一定要注意键值
-        //     , cols: [[
-        //         {field: 'picture', title: '照片', width: 200, unresize: true, sort: true, fixed: "left", templet:'<div ><img  src="{{ d.picture }}" style="width: 30px;height: 30px"></div>'}
-        //         , {field: 'name', title: '名字', width: 200}
-        //         , {field: 'type', title: '类型', width: 200}
-        //         , {field: 'sitnum', title: 'sitnum', width: 200, sort: true}
-        //         , {field: 'price', title: '价格', width: 200}
-        //         , {field: 'number', title: '数量', width: 50, edit: 'text'}
-        //         , {fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
-        //     ]]
-        //     , page: true //分页开启
-        //
-        //
-        // });
+        table.render({
+            //z找到table  id叫test的组件
+            // TODO:业务还没写
+            elem: '#test'
+            , id: "transferTable"
+            , url: '/car/list.do'
+            , totalRow: true
+            //这个很关键，就是解析 json数据库中数据的 一定要注意键值
+            , cols: [[
+                {field: 'picture', title: '照片', width: 200, unresize: true, sort: true, fixed: "left", templet:'<div ><img  src="{{ d.picture }}" style="width: 30px;height: 30px"></div>'}
+                , {field: 'name', title: '名字', width: 200}
+                , {field: 'type', title: '类型', width: 200}
+                , {field: 'sitnum', title: 'sitnum', width: 200, sort: true}
+                , {field: 'price', title: '价格', width: 200}
+                , {field: 'number', title: '数量', width: 50, edit: 'text'}
+                , {fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
+            ]]
+            , page: true //分页开启
+
+
+        });
 
     });
 
