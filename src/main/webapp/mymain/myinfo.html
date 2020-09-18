@@ -70,6 +70,11 @@
                                         <tr>
                                             <td>邮箱： <input type="email" v-model="email"  /></td>
                                         </tr>
+
+                                        <tr>
+                                            <td>密码： <input type="text" v-model="password"  /></td>
+                                        </tr>
+
                                         <tr>
                                             <td>
                                                 <button id="modifyInfo" onclick="modifyInfo()" style="color: orangered">修改信息</button>
@@ -95,13 +100,12 @@
 <script type="text/javascript">
 
 
-
-
     var vm = new Vue({
         el:'#noda',
         data:{
             tel:'',
-            email:''
+            email:'',
+            password:''
         },
     });
 
@@ -116,6 +120,7 @@
                     $(".sp3").html(data.info.tel);
                     vm.tel = data.info.tel;
                     vm.email=data.info.email;
+                    vm.password=data.info.password;
                 }
             }
         })
@@ -135,68 +140,22 @@
         })
     }
 
+    function modifyPassword (){
+        $.ajax({
+            type:"post",
+            url:"/user/modifypassword.do",
+            dataType:"json",
+            data: {"password":vm.password},
+            success:function(data){
+                if(data.code==1){
+                    alert("密码更新成功!")
+                }
+            }
+        })
+    }
 
 
 </script>
-
-
-<script>
-    layui.use('layer', function(){ //独立版的layer无需执行这一句
-        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-
-        //触发事件
-        var active = {
-            setTop: function(){
-                var that = this;
-                //多窗口模式，层叠置顶
-            }
-            ,offset: function(othis){
-                var type = othis.data('type')
-                    ,text = othis.text();
-
-                layer.open({
-                    type: 1
-                    ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-                    ,id: 'layerDemo'+type //防止重复弹出
-                    ,content: '<div style="width: 300px; height: 200px; align-content: center; padding: 10px;margin: 10px;">请输入修改后的手机号：<br><form><input type="text" name="tel" id="tel"></form></div>'
-                    ,btn: '修改'
-                    ,btnAlign: 'c' //按钮居中
-                    ,shade: 0 //不显示遮罩
-                    ,yes: function(){
-                        $.ajax({
-                            url:"/carsys/user/update.do",
-                            type:"post",
-                            data:$("form").serialize(),
-                            dataType:'json',
-                            success:function(res) {
-                                if(res.code == 1) {
-                                    alert("修改成功！");
-                                    window.location.href=("myinfo.html");
-                                } else {
-                                    layer.alert(res.info);
-                                }
-                            },
-                            error: function() {
-                                elert("ajax错误");
-                            }
-                        });
-
-
-
-
-                    }
-                });
-            }
-        };
-
-        $('#layerDemo .layui-btn').on('click', function(){
-            var othis = $(this), method = othis.data('method');
-            active[method] ? active[method].call(this, othis) : '';
-        });
-
-    });
-</script>
-
 
 </body>
 </html>dy>

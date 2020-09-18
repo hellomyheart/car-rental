@@ -27,6 +27,7 @@ public class UserController {
 
     /**
      * 注册
+     *
      * @param tel
      * @param password
      * @param email
@@ -49,6 +50,7 @@ public class UserController {
 
     /**
      * 登录
+     *
      * @param tel
      * @param password
      * @param session
@@ -63,6 +65,7 @@ public class UserController {
 
     /**
      * 获取登录用户信息
+     *
      * @param session
      * @return
      */
@@ -78,12 +81,20 @@ public class UserController {
 
 
     @PostMapping("/update.do")
-    public JsonResult update(HttpSession session,String tel,String email){
+    public JsonResult update(HttpSession session, String tel, String email) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
         user.setTel(tel);
         user.setEmail(email);
         userService.updateByPrimaryKey(user);
-        return new JsonResult(1,"修改信息成功");
+        return new JsonResult(1, "修改信息成功");
+    }
+
+    @PostMapping("/modifypassword.do")
+    public JsonResult update(HttpSession session, String password) {
+        User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
+        user.setPassword(password);
+        userService.updateByPrimaryKey(user);
+        return new JsonResult(1, "修改密码成功");
     }
 
 }
