@@ -18,7 +18,7 @@
     <div data-v-67ef3a4a class="csdheader">
         <div data-v-67ef3a4a class="layout clear">
             <div data-v-67ef3a4a class="left csdnav">
-                <label data-v-67ef3a4a>
+                <label  id="username" data-v-67ef3a4a>
                     <a data-v-67ef3a4a href="login.html" class="colorRed">登录</a>
                     <a data-v-67ef3a4a href="javascript:void" class="colorRed">/</a>
                     <a data-v-67ef3a4a href="register.html" class="colorRed" style="margin-right: 10px;">注册</a>
@@ -103,7 +103,7 @@
         </div>
 
         <div class="layout">
-            <form class="layui-form" action="">
+            <form id="form1" class="layui-form" action="">
             <div class="selectCar">
                 <h1 class="carTit">短租自驾</h1>
                 <div class="getCar car">
@@ -131,10 +131,14 @@
                 <div class="getCar car">
                     <h3>还车</h3>
                 </div>
+
+
+
+
                 <div class="carCom clear">
                     <div class="layui-form-item">
                         <div class="layui-input-inline layui-form" style="width: 145px">
-                            <select name=city2" id="city2" lay-filter="city2">
+                            <select id="city2" name="city2" lay-filter="city2">
                             </select>
                         </div>
                         <div class="layui-input-inline layui-form" style="width: 145px">
@@ -143,14 +147,17 @@
                             </select>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" style="width: 90px">上门取车</label>
+                            <label class="layui-form-label" style="width: 90px">送门上车</label>
                             <div class="layui-input-block">
                                 <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="goBtn">去选车</button>
+
+
+                <button type="submit" class="layui-btn goBtn" lay-submit="" lay-filter="cityCheck">去选车</button>
+
             </div>
             </form>
         </div>
@@ -212,7 +219,21 @@
                         </ul>
                     </dd>
                 </dl>
-            </div>
+            </div>  $(function () {
+        $.ajax({
+            type:"get",
+            url:"/user/query.do",
+            dataType:"json",
+            success:function(data){
+                if(data.code==1){
+                    $("#username").html(data.info.tel)
+                }else{
+                    alert("未登录")
+                    window.location.href="login.html"
+                }
+            }
+        })
+    })
         </div>
     </div>
 
@@ -418,6 +439,20 @@
 
 <script>
 
+    $(function () {
+        $.ajax({
+            type:"get",
+            url:"/user/query.do",
+            dataType:"json",
+            success:function(data){
+                if(data.code==1){
+                    $("#username").replaceWith("你好"+data.info.tel);
+                }
+            }
+        })
+    })
+
+
     function city1() {
 
         $.ajax({ // 使用layui模块化加载
@@ -485,7 +520,6 @@
 
 
         city1();
-console.log(1)
 
         /* 租车地点的区级下拉框的动态添加 */
         form.on('select(city1)', function (data) {
@@ -505,7 +539,44 @@ console.log(1)
             });
         })
 
-        console.log(3)
+
+
+
+
+        //监听提交
+        form.on('submit(cityCheck)', function (data) {
+
+            console.log($("#city1 option:selected").val());
+            //选中项值相乘
+            var i =$("#city1 option:selected").val() *$("#city2 option:selected").val() * $("#region1 option:selected").val() * $("#region2 option:selected").val();
+
+            if (i==0){
+                alert("请填写完整信息");
+                return false;
+            }
+            console.log($("#form1").serialize());
+
+
+            layui.$.ajax({
+                type: 'post',
+                url: '/city/setLists.do',
+                data: $("#form1").serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if(data.code==1){
+                        window.location.href = "shortRent/shortsort.html"
+                    }else{
+                        alert(data.info)
+                    }
+                }
+            })
+            /* layer.alert(JSON.stringify(data.field), {
+                 title: '最终的提交信息'
+             });*/
+            return false;
+        });
+
+
         /* 还车地点的区级下拉框的动态添加 */
         form.on('select(city2)', function (data) {
             layui.$.ajax({              // 使用layui模块化加载

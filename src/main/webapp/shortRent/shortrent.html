@@ -32,13 +32,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">租车地点:</label>
             <div class="layui-input-inline">
-                <select name="quiz1" id="quiz1" lay-filter="quiz1">
+                <select name="city1" id="city1" lay-filter="city1">
                     <option value="0" selected="" disabled="">请选择市</option>
                     <option value=""></option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="quiz2" id="quiz2">
+                <select name="region1" id="region1">
                     <option value="0" selected="" disabled="">请选择县/区</option>
                     <option value=""></option>
                 </select>
@@ -48,12 +48,12 @@
         <div class="layui-form-item">
             <label class="layui-form-label">还车地点:</label>
             <div class="layui-input-inline">
-                <select name="quiz3" id="quiz3" lay-filter="quiz3">
+                <select name="city2" id="city2" lay-filter="city2">
                     <option value="0" selected="" disabled="">请选择市</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="quiz4" id="quiz4">
+                <select name="region2" id="region2">
                     <option value="0" selected="" disabled="">请选择县/区</option>
                     <option value=""></option>
                 </select>
@@ -62,7 +62,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="cityCheck">立即提交</button>
             </div>
         </div>
     </form>
@@ -77,15 +77,15 @@
         /* 市级下拉框的动态添加 */
         city1();
         /* 租车地点的区级下拉框的动态添加 */
-        form.on('select(quiz1)', function (data) {
+        form.on('select(city1)', function (data) {
             layui.$.ajax({              // 使用layui模块化加载
                 url: "/city/list.do?pid=" + data.value,
                 dataType: 'json',
                 type: 'get',
                 success: function (data) {
-                    $("#quiz2").empty();  // 清空下拉框的值
+                    $("#region1").empty();  // 清空下拉框的值
                     $.each(data.info, function (index, item) {
-                        $('#quiz2').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                        $('#region1').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                     });
                     layui.form.render("select");//重新渲染 固定写法
                 }
@@ -93,26 +93,34 @@
         })
 
         /* 还车地点的区级下拉框的动态添加 */
-        form.on('select(quiz3)', function (data) {
+        form.on('select(city2)', function (data) {
             layui.$.ajax({              // 使用layui模块化加载
                 url: "/city/list.do?pid=" + data.value,
                 dataType: 'json',
                 type: 'get',
                 success: function (data) {
-                    $("#quiz4").empty();//清空下拉框的值
+                    $("#region2").empty();//清空下拉框的值
                     $.each(data.info, function (index, item) {
-                        $('#quiz4').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                        $('#region2').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                     });
                     layui.form.render("select");//重新渲染 固定写法
                 }
             });
         })
         //监听提交
-        form.on('submit(demo1)', function (data) {
-            console.log(data.field)
+        form.on('submit(cityCheck)', function (data) {
+
+            //选中项值相乘
+            var i =$("#city1 option:selected").val() *$("#city2 option:selected").val() * $("#region1 option:selected").val() * $("#region2 option:selected").val();
+
+            if (i==0){
+                alert("请填写完整信息");
+                return false;
+            }
+
             layui.$.ajax({
                 type: 'post',
-                url: 'http://localhost:8080/TestThreeProject/city/button.do',
+                url: '/city/setLists.do',
                 data: $("#form1").serialize(),
                 dataType: 'json',
                 success: function (data) {
@@ -121,7 +129,6 @@
                     }else{
                         alert(data.info)
                     }
-
                 }
             })
             /* layer.alert(JSON.stringify(data.field), {
@@ -141,8 +148,8 @@
                 /* index 是要遍历的下标
                 *  item 是对应下标的对象 */
                 $.each(data.info, function (index, item) {
-                    $('#quiz1').append(new Option(item.name, item.id));// 下拉菜单里添加元素
-                    $('#quiz3').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    $('#city1').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    $('#city2').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                 });
                 layui.form.render("select");//重新渲染 固定写法
             },
