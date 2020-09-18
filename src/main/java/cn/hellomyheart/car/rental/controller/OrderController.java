@@ -1,17 +1,21 @@
 package cn.hellomyheart.car.rental.controller;
 
 import cn.hellomyheart.car.rental.common.JsonResult;
+import cn.hellomyheart.car.rental.common.TableResult;
 import cn.hellomyheart.car.rental.entity.City;
 import cn.hellomyheart.car.rental.entity.Order;
 import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.service.OrderService;
 import cn.hellomyheart.car.rental.utils.StrUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @description 订单控制器
@@ -44,5 +48,19 @@ public class OrderController {
         order.setStatus(StrUtils.RESERVED);
         orderService.insert(order);
         return new JsonResult(1,"预定成功");
+    }
+
+    @GetMapping("/list.do")
+    public TableResult list(HttpSession session,Integer page,Integer limit){
+        User user = (User)session.getAttribute(StrUtils.LOGIN_USER);
+
+        List<Order> orders = orderService.selectByUid(user.getId(), page, limit);
+        long total = ((Page) orders).getTotal();
+        TableResult tableResult = new TableResult();
+        tableResult.setCode(0);
+        tableResult.setMsg("");
+        tableResult.setCount(total);
+        tableResult.setData(orders);
+        return tableResult;
     }
 }

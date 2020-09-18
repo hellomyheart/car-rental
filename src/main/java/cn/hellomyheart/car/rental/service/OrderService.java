@@ -1,6 +1,9 @@
 package cn.hellomyheart.car.rental.service;
 
 import cn.hellomyheart.car.rental.entity.Order;
+
+import java.util.List;
+
 public interface OrderService {
 
 
@@ -15,5 +18,7 @@ public interface OrderService {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<Order> selectByUid(Integer uid,Integer page,Integer limit);
 
 }
