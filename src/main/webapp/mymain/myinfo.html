@@ -65,17 +65,16 @@
                         <div class="orderList list" id="noda">
                                     <table  class="tableinfo">
                                         <tr>
-                                            <td>手机号：{{tel}}</td>
-                                            <td><button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">修改</button></td>
+                                            <td>手机号：<input type="text" v-model="tel"  /></td>
                                         </tr>
                                         <tr>
-                                            <td>邮箱：{{email}}</td>
-                                            <td><a href="#" style="color: orangered">修改</a></td>
+                                            <td>邮箱： <input type="email" v-model="email"  /></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
                                             <td>
-                                                <a href="#" style="color: orangered">修改密码</a>
+                                                <button id="modifyInfo" onclick="modifyInfo()" style="color: orangered">修改信息</button>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button id="modifyPassword" onclick="modifyPassword()" style="color: orangered">修改密码</button>
                                             </td>
                                         </tr>
                                     </table>
@@ -94,6 +93,10 @@
 </div>
 
 <script type="text/javascript">
+
+
+
+
     var vm = new Vue({
         el:'#noda',
         data:{
@@ -102,20 +105,37 @@
         },
     });
 
+
     $(function () {
         $.ajax({
             type:"get",
-            url:"/carsys/user/denglu.do",
+            url:"/user/query.do",
             dataType:"json",
             success:function(data){
-                //id为0时为父类
                 if(data.code==1){
+                    $(".sp3").html(data.info.tel);
                     vm.tel = data.info.tel;
                     vm.email=data.info.email;
                 }
             }
-        });
+        })
     })
+
+    function modifyInfo (){
+        $.ajax({
+            type:"post",
+            url:"/user/update.do",
+            dataType:"json",
+            data: {"tel":vm.tel,"email":vm.email},
+            success:function(data){
+                if(data.code==1){
+                    alert("信息更新成功!")
+                }
+            }
+        })
+    }
+
+
 
 </script>
 
@@ -138,7 +158,7 @@
                     type: 1
                     ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                     ,id: 'layerDemo'+type //防止重复弹出
-                    ,content: '<div style="width: 300px; height: 200px;">请输入修改后的手机号：<br><form><input type="text" name="tel" id="tel"></form></div>'
+                    ,content: '<div style="width: 300px; height: 200px; align-content: center; padding: 10px;margin: 10px;">请输入修改后的手机号：<br><form><input type="text" name="tel" id="tel"></form></div>'
                     ,btn: '修改'
                     ,btnAlign: 'c' //按钮居中
                     ,shade: 0 //不显示遮罩

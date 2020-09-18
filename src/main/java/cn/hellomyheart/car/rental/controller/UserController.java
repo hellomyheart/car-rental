@@ -76,4 +76,14 @@ public class UserController {
         return new JsonResult(1, user);
     }
 
+
+    @PostMapping("/update.do")
+    public JsonResult update(HttpSession session,String tel,String email){
+        User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
+        user.setTel(tel);
+        user.setEmail(email);
+        userService.updateByPrimaryKey(user);
+        return new JsonResult(1,"修改信息成功");
+    }
+
 }
