@@ -11,6 +11,7 @@ import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,5 +63,11 @@ public class OrderController {
         tableResult.setCount(total);
         tableResult.setData(orders);
         return tableResult;
+    }
+
+    @PostMapping("/delete.do")
+    public JsonResult delete(Integer oId){
+        orderService.deleteByPrimaryKey(oId);
+        return new JsonResult(1,"删除订单成功");
     }
 }

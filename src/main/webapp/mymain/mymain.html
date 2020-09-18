@@ -156,6 +156,22 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
+    
+
+function deleteOrder(oId) {
+    $.ajax({
+            type:"post",
+            url:"/order/delete.do",
+            dataType:"json",
+            data: {"oId":oId},
+            success:function(data){
+                if(data.code==1){
+                  alert("删除成功!")
+                }
+            }
+        })
+}
+
     layui.use('table', function(){
         var table = layui.table;
         //监听工具条
@@ -164,6 +180,7 @@
             if(obj.event === 'del') {
                 layer.confirm('真的删除行么', function (index) {
                     obj.del();
+                    deleteOrder(obj.data.id)
                     layer.close(index);
                 });
             }
