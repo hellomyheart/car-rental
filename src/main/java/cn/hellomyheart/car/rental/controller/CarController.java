@@ -1,6 +1,5 @@
 package cn.hellomyheart.car.rental.controller;
 
-import cn.hellomyheart.car.rental.common.controller.BaseController;
 import cn.hellomyheart.car.rental.common.result.JsonResult;
 import cn.hellomyheart.car.rental.common.result.ResultCode;
 import cn.hellomyheart.car.rental.entity.Car;
