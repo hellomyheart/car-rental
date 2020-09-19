@@ -1,5 +1,6 @@
 package cn.hellomyheart.car.rental.controller;
 
+import cn.hellomyheart.car.rental.common.controller.BaseController;
 import cn.hellomyheart.car.rental.common.result.JsonResult;
 import cn.hellomyheart.car.rental.common.result.ResultCode;
 import cn.hellomyheart.car.rental.common.result.ResultMessage;
@@ -10,12 +11,10 @@ import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.service.OrderService;
 import cn.hellomyheart.car.rental.utils.StrUtils;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -30,10 +29,11 @@ import java.util.List;
 @Controller()
 @RequestMapping("/order")
 @ResponseBody
-public class OrderController {
+public class OrderController extends BaseController<OrderService,Order>{
 
     @Autowired
     OrderService orderService;
+
 
     /**
      * 添加订单
@@ -43,8 +43,8 @@ public class OrderController {
      * @param session
      * @return
      */
-    @RequestMapping("/add.do")
-    public JsonResult add(Integer id, Integer oprice, HttpSession session) {
+    @PostMapping("/add.do")
+    public JsonResult add(@RequestParam("id") Integer id, @RequestParam("oprice") Integer oprice, HttpSession session) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
         if (user == null) {
             return new JsonResult(ResultCode.FAIL, ResultMessage.No_LOGIN);
@@ -58,8 +58,7 @@ public class OrderController {
         order.setBackid(citys[1][1].getId());
         order.setOprice(oprice.doubleValue());
         order.setStatus(StrUtils.RESERVED);
-        orderService.insert(order);
-        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
+        return add(order);
     }
 
 
@@ -93,7 +92,6 @@ public class OrderController {
      */
     @PostMapping("/delete.do")
     public JsonResult delete(Integer oId) {
-        orderService.deleteByPrimaryKey(oId);
-        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
+        return delete(oId);
     }
 }

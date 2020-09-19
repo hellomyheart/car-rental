@@ -1,45 +1,47 @@
 package cn.hellomyheart.car.rental.service.impl;
 
+import cn.hellomyheart.car.rental.common.service.BaseService;
+import cn.hellomyheart.car.rental.common.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.mapper.UserMapper;
 import cn.hellomyheart.car.rental.service.UserService;
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<UserMapper,User> implements UserService {
 
     @Resource
     private UserMapper userMapper;
-
-    @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return userMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    public int insert(User record) {
-        return userMapper.insert(record);
-    }
-
-    @Override
-    public int insertSelective(User record) {
-        return userMapper.insertSelective(record);
-    }
-
-    @Override
-    public User selectByPrimaryKey(Integer id) {
-        return userMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int updateByPrimaryKeySelective(User record) {
-        return userMapper.updateByPrimaryKeySelective(record);
-    }
-
-    @Override
-    public int updateByPrimaryKey(User record) {
-        return userMapper.updateByPrimaryKey(record);
-    }
+//
+//    @Override
+//    public int deleteByPrimaryKey(Integer id) {
+//        return userMapper.deleteByPrimaryKey(id);
+//    }
+//
+//    @Override
+//    public int insert(User record) {
+//        return userMapper.insert(record);
+//    }
+//
+//    @Override
+//    public int insertSelective(User record) {
+//        return userMapper.insertSelective(record);
+//    }
+//
+//    @Override
+//    public User selectByPrimaryKey(Integer id) {
+//        return userMapper.selectByPrimaryKey(id);
+//    }
+//
+//    @Override
+//    public int updateByPrimaryKeySelective(User record) {
+//        return userMapper.updateByPrimaryKeySelective(record);
+//    }
+//
+//    @Override
+//    public int updateByPrimaryKey(User record) {
+//        return userMapper.updateByPrimaryKey(record);
+//    }
 
     @Override
     public User login(String tel, String password) {

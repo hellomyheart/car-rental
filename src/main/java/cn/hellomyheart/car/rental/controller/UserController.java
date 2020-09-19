@@ -1,5 +1,6 @@
 package cn.hellomyheart.car.rental.controller;
 
+import cn.hellomyheart.car.rental.common.controller.BaseController;
 import cn.hellomyheart.car.rental.common.result.JsonResult;
 import cn.hellomyheart.car.rental.common.result.ResultCode;
 import cn.hellomyheart.car.rental.common.result.ResultMessage;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @ResponseBody
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController<UserService,User> {
 
     @Autowired
     private UserService userService;
@@ -95,8 +96,7 @@ public class UserController {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
         user.setTel(tel);
         user.setEmail(email);
-        userService.updateByPrimaryKey(user);
-        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
+        return update(user);
     }
 
     /**
@@ -110,8 +110,7 @@ public class UserController {
     public JsonResult update(HttpSession session, String password) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
         user.setPassword(password);
-        userService.updateByPrimaryKey(user);
-        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
+        return update(user);
     }
 
 }

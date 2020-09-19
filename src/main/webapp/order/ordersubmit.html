@@ -179,7 +179,6 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    console.log(data)
                     vm.infos = data.info;
                 }
             },
@@ -198,10 +197,13 @@
     function submitorder() {
         var id = window.location.search;
         var total = $("#total").html();
+        console.log(id)
         console.log(total)
         $.ajax({
-            type: "get",
-            url: "/order/add.do" + id + "&oprice=" + total,
+            type: "post",
+            url: "/order/add.do",
+            // 减掉前面的id=
+            data: {"id":id.slice(4),"oprice":total},
             dataType: "json",
             success: function (data) {
                 if (data.code != 0) {
