@@ -33,12 +33,20 @@ public class CarController {
     @Autowired
     CarService carService;
 
+    /**
+     * 获取汽车列表
+     *
+     * @param session
+     * @param page
+     * @param limit
+     * @return
+     */
     @GetMapping("/list.do")
-    public TableResult list(HttpSession session,Integer page, Integer limit){
+    public TableResult list(HttpSession session, Integer page, Integer limit) {
 
-        City[][] citys= (City[][]) session.getAttribute(StrUtils.CITYS);
+        City[][] citys = (City[][]) session.getAttribute(StrUtils.CITYS);
 
-        List<Car> cars = carService.selectByCityId(citys[0][1].getId(),page,limit);
+        List<Car> cars = carService.selectByCityId(citys[0][1].getId(), page, limit);
 
         long total = ((Page) cars).getTotal();
         TableResult tableResult = new TableResult();
@@ -51,12 +59,18 @@ public class CarController {
     }
 
 
+    /**
+     * 获取汽车详情
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/find.do")
-    public JsonResult findCar(Integer id){
+    public JsonResult findCar(Integer id) {
 
         Car car = carService.selectByPrimaryKey(id);
 
-        return new JsonResult(1,car);
+        return new JsonResult(1, car);
     }
 
 

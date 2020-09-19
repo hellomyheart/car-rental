@@ -32,14 +32,23 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+
+    /**
+     * 添加订单
+     *
+     * @param id
+     * @param oprice
+     * @param session
+     * @return
+     */
     @RequestMapping("/add.do")
-    public JsonResult add(Integer id, Integer oprice, HttpSession session){
-        User user = (User)session.getAttribute(StrUtils.LOGIN_USER);
-        if (user ==null){
-            return new JsonResult(0,"未登录");
+    public JsonResult add(Integer id, Integer oprice, HttpSession session) {
+        User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
+        if (user == null) {
+            return new JsonResult(0, "未登录");
         }
 
-        City[][] citys= (City[][]) session.getAttribute(StrUtils.CITYS);
+        City[][] citys = (City[][]) session.getAttribute(StrUtils.CITYS);
         Order order = new Order();
         order.setCid(id);
         order.setUid(user.getId());
@@ -48,12 +57,21 @@ public class OrderController {
         order.setOprice(oprice.doubleValue());
         order.setStatus(StrUtils.RESERVED);
         orderService.insert(order);
-        return new JsonResult(1,"预定成功");
+        return new JsonResult(1, "预定成功");
     }
 
+
+    /**
+     * 显示订单列表
+     *
+     * @param session
+     * @param page
+     * @param limit
+     * @return
+     */
     @GetMapping("/list.do")
-    public TableResult list(HttpSession session,Integer page,Integer limit){
-        User user = (User)session.getAttribute(StrUtils.LOGIN_USER);
+    public TableResult list(HttpSession session, Integer page, Integer limit) {
+        User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
 
         List<Order> orders = orderService.selectByUid(user.getId(), page, limit);
         long total = ((Page) orders).getTotal();
@@ -65,9 +83,15 @@ public class OrderController {
         return tableResult;
     }
 
+    /**
+     * 删除订单
+     *
+     * @param oId
+     * @return
+     */
     @PostMapping("/delete.do")
-    public JsonResult delete(Integer oId){
+    public JsonResult delete(Integer oId) {
         orderService.deleteByPrimaryKey(oId);
-        return new JsonResult(1,"删除订单成功");
+        return new JsonResult(1, "删除订单成功");
     }
 }

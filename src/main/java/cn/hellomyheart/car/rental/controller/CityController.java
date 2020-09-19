@@ -29,42 +29,69 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
+    /**
+     * 获取城市列表
+     *
+     * @param pid
+     * @param session
+     * @return
+     */
     @GetMapping("/list.do")
-    public JsonResult list(String pid, HttpSession session){
-        if (pid==null){
+    public JsonResult list(String pid, HttpSession session) {
+        if (pid == null) {
             pid = "0";
         }
-        int nPid =Integer.parseInt(pid);
+        int nPid = Integer.parseInt(pid);
         List<City> cities = cityService.selectAll(nPid);
-        return new JsonResult(1,cities);
+        return new JsonResult(1, cities);
     }
 
+    /**
+     * 设置选择城市
+     *
+     * @param session
+     * @param city1
+     * @param region1
+     * @param city2
+     * @param region2
+     * @return
+     */
     @PostMapping("/setLists.do")
-    public JsonResult setLists(HttpSession session,Integer city1, Integer region1 , Integer city2, Integer region2){
-        int temp =city1*city2*region1*region2;
-        if ( temp==0){
-            return new  JsonResult(1,"请先选择城市");
+    public JsonResult setLists(HttpSession session, Integer city1, Integer region1, Integer city2, Integer region2) {
+        int temp = city1 * city2 * region1 * region2;
+        if (temp == 0) {
+            return new JsonResult(1, "请先选择城市");
         }
-        City [][] citys=new City[2][2];
+
+        //city[0][0] 取车省
+        //city[0][1] 取车市
+        //city[1] 还车省 市
+
+        City[][] citys = new City[2][2];
         citys[0][0] = cityService.selectByPrimaryKey(city1);
         citys[0][1] = cityService.selectByPrimaryKey(region1);
         citys[1][0] = cityService.selectByPrimaryKey(city2);
         citys[1][1] = cityService.selectByPrimaryKey(region2);
 
-        session.setAttribute(StrUtils.CITYS,citys);
+        session.setAttribute(StrUtils.CITYS, citys);
 
-        return new JsonResult(1,"success");
+        return new JsonResult(1, "success");
     }
 
+    /**
+     * 获取选择城市
+     *
+     * @param session
+     * @return
+     */
     @PostMapping("/getLists.do")
-    public JsonResult getLists(HttpSession session){
-        City [][] citys= (City[][]) session.getAttribute(StrUtils.CITYS);
+    public JsonResult getLists(HttpSession session) {
+        City[][] citys = (City[][]) session.getAttribute(StrUtils.CITYS);
 
-        if (citys==null)
-            return new JsonResult(0,"未选择城市");
-        return new JsonResult(1,citys);
+        if (citys == null)
+            return new JsonResult(0, "未选择城市");
+        return new JsonResult(1, citys);
     }
-
 
 
 }

@@ -80,6 +80,14 @@ public class UserController {
     }
 
 
+    /**
+     * 更新用户信息
+     *
+     * @param session
+     * @param tel
+     * @param email
+     * @return
+     */
     @PostMapping("/update.do")
     public JsonResult update(HttpSession session, String tel, String email) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
@@ -89,6 +97,13 @@ public class UserController {
         return new JsonResult(1, "修改信息成功");
     }
 
+    /**
+     * 修改密码
+     *
+     * @param session
+     * @param password
+     * @return
+     */
     @PostMapping("/modifypassword.do")
     public JsonResult update(HttpSession session, String password) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
