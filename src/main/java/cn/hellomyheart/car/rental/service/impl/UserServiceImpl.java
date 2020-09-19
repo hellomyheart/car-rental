@@ -23,4 +23,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper,User> implements
             throw new RuntimeException("密码错误,请检查密码!");
         return user;
     }
+
+
+    @Override
+    public int insert(User record) {
+        User user = userMapper.selectByTel(record.getTel());
+        if (user != null) {
+            throw new  RuntimeException("账号已存在,请登录!");
+        }
+        return super.insert(record);
+    }
 }

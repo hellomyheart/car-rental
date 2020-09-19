@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @ResponseBody
 @RequestMapping("/user")
-public class UserController extends BaseController<UserService,User> {
+public class UserController extends BaseController<UserService, User> {
 
     @Autowired
     private UserService userService;
@@ -40,6 +40,7 @@ public class UserController extends BaseController<UserService,User> {
     @PostMapping("/register.do")
     public JsonResult registerUser(String tel, String password, String email, String invitation) {
 
+
         User user = new User();
         user.setTel(tel);
         user.setEmail(email);
@@ -47,9 +48,9 @@ public class UserController extends BaseController<UserService,User> {
         user.setInvitation(invitation);
         userService.insert(user);
         User registerUser = userService.selectByPrimaryKey(user.getId());
-
         return new JsonResult(ResultCode.OK, registerUser);
     }
+
 
     /**
      * 登录
