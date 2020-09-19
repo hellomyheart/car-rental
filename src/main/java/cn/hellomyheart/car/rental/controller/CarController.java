@@ -1,13 +1,12 @@
 package cn.hellomyheart.car.rental.controller;
 
-import cn.hellomyheart.car.rental.common.JsonResult;
+import cn.hellomyheart.car.rental.common.result.JsonResult;
+import cn.hellomyheart.car.rental.common.result.ResultCode;
 import cn.hellomyheart.car.rental.entity.Car;
 import cn.hellomyheart.car.rental.entity.City;
-import cn.hellomyheart.car.rental.entity.Order;
-import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.service.CarService;
 import cn.hellomyheart.car.rental.utils.StrUtils;
-import cn.hellomyheart.car.rental.common.TableResult;
+import cn.hellomyheart.car.rental.common.result.TableResult;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +69,7 @@ public class CarController {
 
         Car car = carService.selectByPrimaryKey(id);
 
-        return new JsonResult(1, car);
+        return new JsonResult(ResultCode.OK, car);
     }
 
 

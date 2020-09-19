@@ -1,7 +1,9 @@
 package cn.hellomyheart.car.rental.controller;
 
-import cn.hellomyheart.car.rental.common.JsonResult;
-import cn.hellomyheart.car.rental.common.TableResult;
+import cn.hellomyheart.car.rental.common.result.JsonResult;
+import cn.hellomyheart.car.rental.common.result.ResultCode;
+import cn.hellomyheart.car.rental.common.result.ResultMessage;
+import cn.hellomyheart.car.rental.common.result.TableResult;
 import cn.hellomyheart.car.rental.entity.City;
 import cn.hellomyheart.car.rental.entity.Order;
 import cn.hellomyheart.car.rental.entity.User;
@@ -45,7 +47,7 @@ public class OrderController {
     public JsonResult add(Integer id, Integer oprice, HttpSession session) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
         if (user == null) {
-            return new JsonResult(0, "未登录");
+            return new JsonResult(ResultCode.FAIL, ResultMessage.No_LOGIN);
         }
 
         City[][] citys = (City[][]) session.getAttribute(StrUtils.CITYS);
@@ -57,7 +59,7 @@ public class OrderController {
         order.setOprice(oprice.doubleValue());
         order.setStatus(StrUtils.RESERVED);
         orderService.insert(order);
-        return new JsonResult(1, "预定成功");
+        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
     }
 
 
@@ -92,6 +94,6 @@ public class OrderController {
     @PostMapping("/delete.do")
     public JsonResult delete(Integer oId) {
         orderService.deleteByPrimaryKey(oId);
-        return new JsonResult(1, "删除订单成功");
+        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
     }
 }

@@ -1,5 +1,6 @@
 package cn.hellomyheart.car.rental.common;
 
+import cn.hellomyheart.car.rental.common.result.JsonResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

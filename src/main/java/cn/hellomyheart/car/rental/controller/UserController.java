@@ -1,6 +1,8 @@
 package cn.hellomyheart.car.rental.controller;
 
-import cn.hellomyheart.car.rental.common.JsonResult;
+import cn.hellomyheart.car.rental.common.result.JsonResult;
+import cn.hellomyheart.car.rental.common.result.ResultCode;
+import cn.hellomyheart.car.rental.common.result.ResultMessage;
 import cn.hellomyheart.car.rental.entity.User;
 import cn.hellomyheart.car.rental.service.UserService;
 import cn.hellomyheart.car.rental.utils.StrUtils;
@@ -45,7 +47,7 @@ public class UserController {
         userService.insert(user);
         User registerUser = userService.selectByPrimaryKey(user.getId());
 
-        return new JsonResult(1, registerUser);
+        return new JsonResult(ResultCode.OK, registerUser);
     }
 
     /**
@@ -60,7 +62,7 @@ public class UserController {
     public JsonResult login(String tel, String password, HttpSession session) {
         User loginUser = userService.login(tel, password);
         session.setAttribute(StrUtils.LOGIN_USER, loginUser);
-        return new JsonResult(1, loginUser);
+        return new JsonResult(ResultCode.OK, loginUser);
     }
 
     /**
@@ -73,10 +75,10 @@ public class UserController {
     public JsonResult query(HttpSession session) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
         if (user == null) {
-            return new JsonResult(0, "未登录");
+            return new JsonResult(ResultCode.FAIL, ResultMessage.FAIL_MESSAGE);
         }
 
-        return new JsonResult(1, user);
+        return new JsonResult(ResultCode.OK, user);
     }
 
 
@@ -94,7 +96,7 @@ public class UserController {
         user.setTel(tel);
         user.setEmail(email);
         userService.updateByPrimaryKey(user);
-        return new JsonResult(1, "修改信息成功");
+        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
     }
 
     /**
@@ -109,7 +111,7 @@ public class UserController {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
         user.setPassword(password);
         userService.updateByPrimaryKey(user);
-        return new JsonResult(1, "修改密码成功");
+        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
     }
 
 }

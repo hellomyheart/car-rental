@@ -1,6 +1,8 @@
 package cn.hellomyheart.car.rental.controller;
 
-import cn.hellomyheart.car.rental.common.JsonResult;
+import cn.hellomyheart.car.rental.common.result.JsonResult;
+import cn.hellomyheart.car.rental.common.result.ResultCode;
+import cn.hellomyheart.car.rental.common.result.ResultMessage;
 import cn.hellomyheart.car.rental.entity.City;
 import cn.hellomyheart.car.rental.service.CityService;
 import cn.hellomyheart.car.rental.utils.StrUtils;
@@ -43,7 +45,7 @@ public class CityController {
         }
         int nPid = Integer.parseInt(pid);
         List<City> cities = cityService.selectAll(nPid);
-        return new JsonResult(1, cities);
+        return new JsonResult(ResultCode.OK, cities);
     }
 
     /**
@@ -60,7 +62,7 @@ public class CityController {
     public JsonResult setLists(HttpSession session, Integer city1, Integer region1, Integer city2, Integer region2) {
         int temp = city1 * city2 * region1 * region2;
         if (temp == 0) {
-            return new JsonResult(1, "请先选择城市");
+            return new JsonResult(ResultCode.OK, ResultMessage.NO_SELECT_CITY);
         }
 
         //city[0][0] 取车省
@@ -75,7 +77,7 @@ public class CityController {
 
         session.setAttribute(StrUtils.CITYS, citys);
 
-        return new JsonResult(1, "success");
+        return new JsonResult(ResultCode.OK, ResultMessage.TRUE_MESSAGE);
     }
 
     /**
@@ -89,8 +91,8 @@ public class CityController {
         City[][] citys = (City[][]) session.getAttribute(StrUtils.CITYS);
 
         if (citys == null)
-            return new JsonResult(0, "未选择城市");
-        return new JsonResult(1, citys);
+            return new JsonResult(ResultCode.FAIL, ResultMessage.NO_SELECT_CITY);
+        return new JsonResult(ResultCode.OK, citys);
     }
 
 

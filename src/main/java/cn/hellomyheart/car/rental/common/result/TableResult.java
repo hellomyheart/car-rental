@@ -1,4 +1,4 @@
-package cn.hellomyheart.car.rental.common;
+package cn.hellomyheart.car.rental.common.result;
 
 import lombok.Data;
 
