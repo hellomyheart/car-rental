@@ -24,3 +24,4 @@ rebel.xml
 ## Other ##
 logs/
 temp/
+src/main/java/cn/hellomyheart/car/rental/controller/AliPayController.java

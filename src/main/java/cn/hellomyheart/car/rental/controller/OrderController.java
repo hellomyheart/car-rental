@@ -25,7 +25,7 @@ import java.util.List;
  * @author: Stephen Shen
  * @date: 2020/9/18 下午3:51
  */
-@Controller()
+@Controller
 @RequestMapping("/order")
 @ResponseBody
 public class OrderController extends BaseController<OrderService,Order>{
