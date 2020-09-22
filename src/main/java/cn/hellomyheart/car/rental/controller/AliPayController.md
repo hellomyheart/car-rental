@@ -50,7 +50,7 @@ public class AliPayController {
         //生成随机Id
         String out_trade_no = UUID.randomUUID().toString();
         //付款金额，必填
-        String total_amount =Integer.toString(r.nextInt(9999999)+1000000);
+        String total_amount =Integer.toString(r.nextInt(100)+10);
         //订单名称，必填
         String subject ="奥迪A8 2016款 A8L 60 TFSl quattro豪华型";
         //商品描述，可空
